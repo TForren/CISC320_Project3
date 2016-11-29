@@ -56,4 +56,17 @@ for counter, curGraph in enumerate(parserOutput):
 		newGraph.add_edge(src,newID)
 		newGraph.add_edge(newID,trg)
 	part1_output.append(newGraph)
-	
+
+result = []
+for graph in part1_output:
+		graphCount = len(part1_output)
+		nodes = graph.nodes()
+		edges = graph.edges()
+		result = []
+		result.append(str(graphCount))
+		result.append(str(len(nodes)) + " " + str(len(edges)) + " 0 0")
+		for edge in edges:
+			result.append(str(edge[0]) + " " + str(edge[1]))
+
+for line in result:
+	print line
