@@ -1,0 +1,2 @@
+Test Case 1.
+Ice cream stands placed at 2,4,3 are a valid cover
