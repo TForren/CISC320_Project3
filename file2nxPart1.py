@@ -1,6 +1,6 @@
 import networkx as nx
 import sys, random
-#import partyCalcs as pc
+import partyCalcs as pc
 #socialGraph = nx.Graph()
 #parser output contains Graph, partyCount, hostCount
 #parserOutput = []
@@ -40,7 +40,6 @@ def parseFileLines(fileLines):
 		curTestCase += 1
 
 parseFileLines(socialGraphFile)	
-print "parser output:",parserOutput
 
 #part 1
 #generate transformation graph accoridng to dominating set reduction.
@@ -57,16 +56,20 @@ for counter, curGraph in enumerate(parserOutput):
 		newGraph.add_edge(newID,trg)
 	part1_output.append(newGraph)
 
-result = []
+graphCount = len(part1_output)
+result = [str(graphCount)]
 for graph in part1_output:
-		graphCount = len(part1_output)
 		nodes = graph.nodes()
 		edges = graph.edges()
-		result = []
-		result.append(str(graphCount))
-		result.append(str(len(nodes)) + " " + str(len(edges)) + " 0 0")
+		curResult = []
+		curResult.append(str(len(nodes)) + " " + str(len(edges)) + " 0 0")
 		for edge in edges:
-			result.append(str(edge[0]) + " " + str(edge[1]))
+			curResult.append(str(edge[0]) + " " + str(edge[1]))
+		result.append(curResult)
 
-for line in result:
-	print line
+#write to file 
+outputFile = open('parserOutput.txt', 'w+')
+for test in result:
+	for line in test:
+		outputFile.write(line+'\n')
+
