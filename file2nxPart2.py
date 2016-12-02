@@ -3,13 +3,15 @@ import sys, random
 import partyCalcs as pc
 #socialGraph = nx.Graph()
 #parser output contains Graph, partyCount, hostCount
-#parserOutput = []
 f = open(sys.argv[1])
 socialGraphFile = f.readlines()
 f.close()
-DEBUG = True
+DEBUG = False
 
 parserOutput = []
+domSets = []
+vertexCovers = []
+
 def parseFileLines(fileLines):
 	socialGraph = nx.Graph()
 	splitLine = []
@@ -47,14 +49,15 @@ def parseFileLines(fileLines):
 			curLine = fileLines[LP]
 			splitLine = curLine.split()
 			socialGraph.add_edge(int(splitLine[0]),int(splitLine[1]))
-			#print LP+1,"adding edge", splitLine[0],"and",splitLine[1]
 			LP += 1	
 		curTestArray = [socialGraph,partyCount,partyHostIDs]
 		parserOutput.append(curTestArray)
 		curTestCase += 1
 
 parseFileLines(socialGraphFile)	
-#print "parser output:",parserOutput
+
+print "\nPart 2"
+print "-------------------------------"
 
 #iterate over all the test cases now that they are processed into networkx graphs
 for counter, test in enumerate(parserOutput):
@@ -66,7 +69,7 @@ for counter, test in enumerate(parserOutput):
 	people = nx.nodes(curGraph)
 	peopleCount = len(people)
 	print "\nTest Case",counter+1
-	print "-------------------------------"
+	print "--------------"
 	avg = 9999 #PA3 EDIT
 	chosenHosts = [] #PA3 EDIT	
 	while avg > 1:
@@ -78,4 +81,18 @@ for counter, test in enumerate(parserOutput):
 	print "My Heuristic hosts are", chosenHosts
 	print "Average social awkwardness =", avg
 	
-		
+	domSets.append(chosenHosts)
+
+#part3
+print "\nPart 3"
+print "-------------------------------"
+#sanatize node IDs > 1000
+for counter, set in enumerate(domSets):
+	curVertexCover = []
+	for ID in set:
+		if (ID > 1000):
+			ID = ID - 1000 * int(str(ID)[:1])
+		curVertexCover.append(ID)
+	vertexCovers.append(curVertexCover)
+
+
