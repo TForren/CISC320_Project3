@@ -1,6 +1,7 @@
 import networkx as nx
 import sys, random
 import partyCalcs as pc
+import verifyVCover as vc
 #socialGraph = nx.Graph()
 #parser output contains Graph, partyCount, hostCount
 f = open(sys.argv[1])
@@ -91,24 +92,20 @@ for counter, set in enumerate(domSets):
 	curVertexCover = []
 	for ID in set:
 		if (ID > 1000):
-			strID = str(ID)
-			splitStr = strID.split("0")
-			ID = int(splitStr[0])
+			ID = ID - 1000 * int(str(ID)[:1])
 		curVertexCover.append(ID)
-	vertexCovers.append(curVertexCover)
 	print "\nTest Case",counter+1
 	print "-------------"
-	print "vertex cover:"
 	print curVertexCover
+	verified = vc.verifyVertexCover()
+	vertexCovers.append(curVertexCover)
+#verify vertex cover
 
-#write cover to file
-outputFile = open('vertexCoverOutput.txt','w+')
-line = str(len(vertexCovers)) + '\n'
-outputFile.write(line)
-for vertexCover in vertexCovers:
-	line = str(len(vertexCover)) + '\n'
-	outputFile.write(line)
-	for node in vertexCover:
-		line = str(node) + '\n'
-		outputFile.write(line)
+
+
+
+
+
+
+
 

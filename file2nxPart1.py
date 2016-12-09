@@ -72,4 +72,4 @@ outputFile = open('parserOutput.txt', 'w+')
 for test in result:
 	for line in test:
 		outputFile.write(line+'\n')
-
+print "file written to parserOutput.txt"
